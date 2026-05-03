@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Vanilla AGENTS.md</title>
+<meta name="description" content="Vanilla AGENTS.md is a fast, lightweight, cross-platform format for instructing coding agents."/>
+<meta name="viewport" content="width=800"/>
+<meta property="og:title" content="Vanilla AGENTS.md"/>
+<meta property="og:description" content="A fast, lightweight, cross-platform format for instructing coding agents. 0 bytes, scientifically optimal."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  background-color: #cccccc;
+  margin: 0;
+}
+
+#content {
+  margin: 0 auto;
+  padding: 15px;
+  width: 750px;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px 5px #999999;
+  position: relative;
+}
+#skyscraper {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 50px;
+  margin-top: 50px;
+  width: 160px;
+  text-align: center;
+  font-size: 11pt;
+  color: #999999;
+}
+#skyscraper a {
+  color: #999999;
+}
+
+.vanillajs {
+  font-family: 'Tangerine', cursive;
+  color: #9e946e;
+  font-size: 140%;
+  padding-right: .1em;
+  font-weight: 700;
+}
+.code {
+  font-family: monospace;
+  white-space: pre;
+}
+
+h1 {
+  margin: 0;
+  position: relative;
+  height: 200px;
+  line-height: 180px;
+  text-align: center;
+  font-size: 60pt;
+  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
+  color: #F3E5AB;
+  font-weight: 700;
+  font-family: 'Tangerine', cursive;
+}
+h1 span {
+  position: relative;
+  z-index: 1;
+}
+h1 .bg-glyph {
+  vertical-align: middle;
+  opacity: .1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -100px;
+  margin-top: -100px;
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+h2 {
+  margin: 1em 0 0 0;
+  font-size: 25pt;
+  color: #aaaaaa;
+  font-weight: normal;
+}
+
+h3 {
+  margin: 5px;
+  font-size: 15pt;
+  color: #666666;
+  font-weight: normal;
+}
+
+p a {
+  color: #999999;
+}
+p a:hover {
+  color: #666666;
+  text-shadow: 0 0 8px #F3E5AB, 0 0 4px #F3E5AB;
+}
+
+blockquote:before {
+  content: '\201C';
+  font-size: 28pt;
+  padding-right: .1em;
+  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
+  color: #F3E5AB;
+  font-weight: 700;
+  font-family: 'Tangerine', cursive;
+}
+blockquote {
+  font-family: 'Tangerine', cursive;
+  color: #9e946e;
+  font-size: 200%;
+  padding-right: .1em;
+  min-height: 4em;
+  margin: 0.5em 1em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+blockquote:after {
+  content: '\201D';
+  font-size: 28pt;
+  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
+  color: #F3E5AB;
+  font-weight: 700;
+  font-family: 'Tangerine', cursive;
+}
+blockquote .attribution {
+  display: block;
+  font-family: sans-serif;
+  font-size: 9pt;
+  color: #999999;
+  font-weight: normal;
+  margin-top: 0.4em;
+  line-height: 1.4;
+}
+
+h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+h3 a:hover {
+  text-decoration: underline;
+}
+
+.tagline {
+  font-size: 16pt;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+ul.flatlist {
+  list-style-type: none;
+  padding: 0;
+  margin: 4px 0;
+  display: table;
+  width: 100%;
+}
+ul.flatlist li {
+  display: table-cell;
+  text-align: center;
+  color: #999999;
+  padding: 0 4px;
+}
+
+ol.sourcecode {
+  background-color: #999999;
+  color: #ffffff;
+  font-family: monospace;
+  padding: 2px 2px 2px 3em;
+  margin: 1em 0;
+}
+ol.sourcecode li {
+}
+ol.sourcecode li div {
+  padding-left: 1em;
+  background-color: #ffffff;
+  color: #000000;
+  white-space: pre-wrap;
+  min-height: 1.2em;
+}
+
+#customizer {}
+#customizer-options label {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 0 2px 2px 0;
+  width: 45%;
+  background-color: #cccccc;
+  cursor: pointer;
+}
+#customizer-options label:hover {
+  background-color: #dddddd;
+}
+#customizer-options label.selected {
+  background-color: #F3E5AB;
+  color: #666666;
+}
+#customizer-options label input {
+  margin-right: 8px;
+}
+#customizer-estimate {
+  margin: 0.5em 0;
+}
+#customizer-estimate span.throbber {
+  display: inline-block;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+  background: #cccccc;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#customizer-estimate label {
+  font-size: smaller;
+  display: inline-block;
+  background-color: #dddddd;
+  padding: 1px .75em 1px .5em;
+  border-radius: 1em;
+  color: #666666;
+}
+#customizer-estimate label:hover {
+  background-color: #eeeeee;
+  color: #999999;
+}
+#customizer-estimate label input {
+  vertical-align: bottom;
+}
+#customizer-overhead {
+  margin: 0.5em 0;
+  font-size: 10pt;
+  color: #666666;
+}
+#customizer-overhead .pct {
+  font-weight: bold;
+  color: #b85c5c;
+}
+#customizer-overhead a {
+  color: #999999;
+  font-size: 8pt;
+}
+#customizer-download {
+  margin-top: 0.5em;
+}
+#customizer-download input[type=submit] {
+  font-size: 14pt;
+  padding: 6px 18px;
+  background: #F3E5AB;
+  border: 1px solid #9e946e;
+  color: #666666;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#customizer-download input[type=submit]:hover {
+  background: #fff0c0;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 2em;
+  width: 100%;
+}
+table th {
+  white-space: nowrap;
+}
+table th, table td {
+  border: 1px solid #cccccc;
+  padding: 2px;
+}
+
+table.comparison td {
+  white-space: nowrap;
+}
+table.comparison td.corner {
+  border-left: none;
+  border-top: none;
+}
+table.comparison td.ops {
+  padding: 0;
+  line-height: 1.5em;
+  width: 100%;
+}
+table.comparison td.ops .container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+table.comparison td.ops .label {
+  position: relative;
+  display: block;
+  padding: 2px;
+  z-index: 1;
+  text-align: right;
+  font-family: monospace;
+}
+table.comparison td.ops .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #cccccc;
+}
+
+.science {
+  background: #fff7d6;
+  border: 1px dashed #F3E5AB;
+  padding: 1em 1.2em;
+  margin: 1em 0;
+  border-radius: 3px;
+}
+.science h3 {
+  margin: 0 0 0.5em 0;
+  color: #9e946e;
+}
+.science .stats {
+  display: flex;
+  gap: 1em;
+  margin: 0.5em 0;
+  font-family: monospace;
+}
+.science .stats div {
+  flex: 1;
+  background: #ffffff;
+  padding: 0.5em;
+  border: 1px solid #F3E5AB;
+  text-align: center;
+}
+.science .stats .num {
+  font-size: 18pt;
+  color: #b85c5c;
+  display: block;
+  font-weight: bold;
+}
+.science cite {
+  font-size: 9pt;
+  color: #999999;
+  display: block;
+  margin-top: 0.5em;
+}
+
+table.examples td {
+  vertical-align: top;
+  padding: 4px;
+}
+table.examples td.code {
+  font-family: monospace;
+  white-space: pre-wrap;
+  font-size: 9pt;
+}
+
+.badge {
+  display: inline-block;
+  background: #F3E5AB;
+  color: #666666;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 10pt;
+  font-family: monospace;
+  border: 1px solid #9e946e;
+}
+</style>
+<script type="text/javascript">
+var customizer_update_t1 = null;
+var customizer_update_t2 = null;
+var customizer_use_hrsize = false;
+
+var options = [
+  "Project Overview",
+  "Setup Commands",
+  "Build Steps",
+  "Test Instructions",
+  "Code Style Guidelines",
+  "Security Considerations",
+  "Pull Request Format",
+  "Deployment Steps",
+  "Monorepo Nested Files",
+  ["Options"],
+  "Minify Whitespace",
+  "Trailing Newline",
+  "Use \"CRLF\" line breaks (Windows)",
+];
+
+var testimonial_cur;
+var testimonials = [
+  {text: "AGENTS.md is the lowest-overhead, most comprehensive format I’ve ever used.", attr: ""},
+  {text: "AGENTS.md makes everything plain text, which is very convenient for grep-based applications.", attr: ""},
+  {text: "Native support for Markdown and other cutting-edge technologies makes me keep coming back to AGENTS.md, time after time.", attr: ""},
+  {text: "Context files tend to reduce task success rates compared to providing no repository context.", attr: "— Gloaguen, Mündler, Müller, Raychev & Vechev, arXiv:2602.11988 (2026)"},
+  {text: "Human-written context files should describe only minimal requirements.", attr: "— Gloaguen et al., arXiv:2602.11988 (2026)"},
+];
+
+var dom = {optdiv:null, uncomp:null, gzipped:null, testimonial:null, overhead:null};
+
+window.onload = function() {
+  dom.optdiv = document.getElementById("customizer-options");
+  dom.uncomp = document.getElementById("customizer-estimate-uncompressed");
+  dom.gzipped = document.getElementById("customizer-estimate-gzipped");
+  dom.testimonial = document.getElementById("testimonial");
+  dom.overhead = document.getElementById("customizer-overhead-pct");
+
+  for (var i=0; i<options.length; i++) { (function(){
+    if (typeof options[i] !== 'string') {
+      var spacer = document.createElement("h3");
+      spacer.appendChild(document.createTextNode(options[i][0]));
+      dom.optdiv.appendChild(spacer);
+      return;
+    }
+
+    var label = document.createElement("label");
+    var input = document.createElement("input");
+    input.type = "checkbox";
+    input.onchange = function(){
+      label.className = input.checked ? "selected" : "";
+      customizer_update();
+      customizer_overhead();
+    };
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(options[i]));
+    dom.optdiv.appendChild(label);
+  })(); }
+
+  testimonial_cur = Math.floor(Math.random() * testimonials.length);
+  render_testimonial();
+  setInterval(function(){
+    testimonial_cur = (testimonial_cur+1) % testimonials.length;
+    render_testimonial();
+  }, 5000);
+};
+
+function render_testimonial() {
+  while (dom.testimonial.childNodes.length) dom.testimonial.removeChild(dom.testimonial.firstChild);
+  var t = testimonials[testimonial_cur];
+  dom.testimonial.appendChild(document.createTextNode(t.text));
+  if (t.attr) {
+    var a = document.createElement("span");
+    a.className = "attribution";
+    a.appendChild(document.createTextNode(t.attr));
+    dom.testimonial.appendChild(a);
+  }
+}
+
+function customizer_update() {
+  var t1 = Math.random()/3 + .1;
+  var t2 = t1 + Math.random()/3 + .05;
+
+  dom.uncomp.innerHTML = "";
+  dom.uncomp.className = "throbber";
+
+  dom.gzipped.innerHTML = "";
+  dom.gzipped.className = "throbber";
+
+  clearTimeout(customizer_update_t1);
+  clearTimeout(customizer_update_t2);
+
+  customizer_update_t1 = setTimeout(function(){
+    customizer_showestimate(dom.uncomp);
+  },t1*1000);
+  customizer_update_t2 = setTimeout(function(){
+    customizer_showestimate(dom.gzipped, true);
+  },t2*1000);
+}
+function customizer_showestimate(el, zip) {
+  el.innerHTML = customizer_use_hrsize ? (zip ? "0.02 KBytes" : "0.00 KBytes") : (zip ? "25 bytes" : "0 bytes");
+  el.className = "";
+}
+function customizer_hrsize(use_hrsize) {
+  customizer_use_hrsize = use_hrsize;
+
+  clearTimeout(customizer_update_t1);
+  clearTimeout(customizer_update_t2);
+
+  customizer_showestimate(dom.uncomp);
+  customizer_showestimate(dom.gzipped, true);
+}
+function customizer_overhead() {
+  var checked = dom.optdiv.querySelectorAll("input[type=checkbox]:checked").length;
+  var pct = Math.min(20, checked * 2);
+  dom.overhead.textContent = "+" + pct + "%";
+}
+function noop_download(e) {
+  e.preventDefault();
+  return false;
+}
+</script>
+</head>
+<body>
+<div id="content">
+<h1><span>Vanilla AGENTS.md</span><svg class="bg-glyph" viewBox="0 0 208 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="204" height="124" rx="14" ry="14" fill="none" stroke="#000" stroke-width="6"/><path fill="#000" d="M30 98V30h20l20 26 20-26h20v68H90V62L70 86 50 62v36zM158 98l-30-32h18V30h24v36h18z"/></svg></h1>
+<div class="tagline"><span class="vanillajs">Vanilla AGENTS.md</span> is a fast, lightweight, cross-platform format<br/>for instructing incredible, powerful coding agents.</div>
+
+<h2>Introduction</h2>
+<p><a target="_blank" rel="noopener" href="https://agents.md">The <span class="vanillajs">Vanilla AGENTS.md</span> team</a> maintains every byte of the format and works hard each day to make sure it is small and intuitive. Who&rsquo;s using <span class="vanillajs">Vanilla AGENTS.md</span>? Glad you asked! Here are a few:</p>
+<ul class="flatlist"><li>OpenAI</li><li>Google</li><li>Anthropic</li><li>Cursor</li><li>GitHub Copilot</li><li>Zed</li><li>VS Code</li><li>Warp</li><li>Devin</li><li>Jules</li></ul>
+<ul class="flatlist"><li>Aider</li><li>Codex</li><li>Factory</li><li>Amp</li><li>Temporal</li><li>Apache Airflow</li><li>PlutoLang</li><li>Sourcegraph</li><li>JetBrains</li><li>Replit</li></ul>
+<p>In fact, <span class="vanillajs">Vanilla AGENTS.md</span> is already used in more repositories than <span class="code">.cursorrules</span>, <span class="code">.windsurfrules</span>, <span class="code">.clinerules</span>, <span class="code">CLAUDE.md</span>, and <span class="code">.github/copilot-instructions.md</span> &mdash; <em>combined</em>.</p>
+
+<h2>Download</h2>
+<p>Ready to try <span class="vanillajs">Vanilla AGENTS.md</span>? Choose exactly what you need!</p>
+
+<div id="customizer">
+<div id="customizer-options"><label class="selected"><input type="checkbox" name="core" checked="checked" disabled="disabled"/> Core Functionality</label></div>
+<div id="customizer-estimate"><strong>Final size:</strong> <span id="customizer-estimate-uncompressed">0 bytes</span> uncompressed, <span id="customizer-estimate-gzipped">25 bytes</span> gzipped. <label><input type="checkbox" onchange="customizer_hrsize(this.checked);"/> Show human-readable sizes</label></div>
+<div id="customizer-overhead">Estimated agent cost overhead: <span class="pct" id="customizer-overhead-pct">+0%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
+<div id="customizer-download"><form action="?download" method="post" onsubmit="return noop_download(event)"><input type="submit" value="Download"/></form></div>
+</div>
+
+<h2>Testimonials</h2>
+<blockquote id="testimonial"></blockquote>
+
+<h2>Getting Started</h2>
+<p>The <span class="vanillajs">Vanilla AGENTS.md</span> team takes pride in the fact that it is the <strong>most lightweight format available anywhere</strong>; using our production-quality deployment strategy, your coding agent will have <span class="vanillajs">Vanilla AGENTS.md</span> loaded into context before it even reads your repository.</p>
+<p>To use <span class="vanillajs">Vanilla AGENTS.md</span>, just place a file with the following name at the root of your repository:</p>
+<ol class="sourcecode"><li><div>AGENTS.md</div></li></ol>
+<p>When you&rsquo;re ready to move your project to a production deployment, switch to the much faster method:</p>
+<ol class="sourcecode"><li><div>&nbsp;</div></li></ol>
+<p>That&rsquo;s right &mdash; no content at all. <span class="vanillajs">Vanilla AGENTS.md</span> is <em>so popular</em> that filesystems have been automatically supporting it for over fifty years.</p>
+
+<h2>Speed Comparison</h2>
+<p>Here are a few examples of just how fast <span class="vanillajs">Vanilla AGENTS.md</span> really is:</p>
+
+<h3>Parse instructions for a coding agent</h3>
+<table class="comparison">
+<tr><td class="corner"></td><th>Code</th><th>ops / sec</th></tr>
+<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">cat AGENTS.md</td><td class="ops"><div class="container"><span class="label">12,137,211 </span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
+<tr><th>.cursorrules</th><td class="code">parse_cursor_rules(&quot;.cursorrules&quot;)</td><td class="ops"><div class="container"><span class="label">5,443,343 </span><div class="bar" style="width:44.85%;">&nbsp;</div></div></td></tr>
+<tr><th>.windsurfrules</th><td class="code">windsurf.config.load(&quot;.windsurfrules&quot;)</td><td class="ops"><div class="container"><span class="label">3,640,734 </span><div class="bar" style="width:30.00%;">&nbsp;</div></div></td></tr>
+<tr><th>YAML config</th><td class="code">yaml.safe_load(open(&quot;agent.yaml&quot;))</td><td class="ops"><div class="container"><span class="label">1,213,721 </span><div class="bar" style="width:10.00%;">&nbsp;</div></div></td></tr>
+<tr><th>JSON-schema config</th><td class="code">jsonschema.validate(json.load(f), schema)</td><td class="ops"><div class="container"><span class="label">364,116 </span><div class="bar" style="width:3.00%;">&nbsp;</div></div></td></tr>
+<tr><th>XML config</th><td class="code">ET.parse(&quot;agent.xml&quot;).getroot()</td><td class="ops"><div class="container"><span class="label">60,686 </span><div class="bar" style="width:0.50%;">&nbsp;</div></div></td></tr>
+</table>
+
+<h3>Update instructions across 12 different coding agents</h3>
+<table class="comparison">
+<tr><td class="corner"></td><th>Action</th><th>ops / sec</th></tr>
+<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">$EDITOR AGENTS.md</td><td class="ops"><div class="container"><span class="label">8,280,893</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
+<tr><th>Per-tool config files</th><td class="code">for f in .cursorrules .windsurfrules .clinerules ...; do $EDITOR $f; done</td><td class="ops"><div class="container"><span class="label">62,872</span><div class="bar" style="width:0.76%;">&nbsp;</div></div></td></tr>
+<tr><th>Tool-specific UI panels</th><td class="code">click(Settings).click(Rules).edit().save() &times; 12</td><td class="ops"><div class="container"><span class="label">19,449</span><div class="bar" style="width:0.23%;">&nbsp;</div></div></td></tr>
+<tr><th>Slack thread to teammate</th><td class="code">slack.send(&quot;hey can you also update yours&quot;)</td><td class="ops"><div class="container"><span class="label">5,457</span><div class="bar" style="width:0.07%;">&nbsp;</div></div></td></tr>
+</table>
+
+<h3>Task success rate vs. context size</h3>
+<table class="comparison">
+<tr><td class="corner"></td><th>Configuration</th><th>relative success</th></tr>
+<tr><th>Empty AGENTS.md</th><td class="code">touch AGENTS.md</td><td class="ops"><div class="container"><span class="label">100.0%</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
+<tr><th>Minimal AGENTS.md</th><td class="code">echo &quot;Run \`pnpm test\`.&quot; &gt; AGENTS.md</td><td class="ops"><div class="container"><span class="label">95.0%</span><div class="bar" style="width:95.00%;">&nbsp;</div></div></td></tr>
+<tr><th>Comprehensive AGENTS.md</th><td class="code"># overview, setup, build, test, style, security, PR fmt, deploy</td><td class="ops"><div class="container"><span class="label">78.0%</span><div class="bar" style="width:78.00%;">&nbsp;</div></div></td></tr>
+<tr><th>Exhaustive monorepo AGENTS.md</th><td class="code">find . -name AGENTS.md | wc -l   # 47</td><td class="ops"><div class="container"><span class="label">62.0%</span><div class="bar" style="width:62.00%;">&nbsp;</div></div></td></tr>
+</table>
+<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Methodology adapted from Gloaguen et al., <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>. <span class="vanillajs">Vanilla AGENTS.md</span> outperforms all other formats &mdash; including itself, when it gets too long.</p>
+
+<div class="science">
+<h3>The Science</h3>
+<p>Independent researchers recently confirmed that <span class="vanillajs">Vanilla AGENTS.md</span> is so efficient, <em>removing it entirely</em> is the only known optimization. Our team is working tirelessly to deliver this enhancement in <span class="code">v0.0.0</span>.</p>
+<div class="stats">
+  <div><span class="num">+20%</span>agent cost overhead<br/>from context files</div>
+  <div><span class="num">&minus;</span>task success rate<br/>vs. no context at all</div>
+  <div><span class="num">0</span>required fields<br/>by design</div>
+</div>
+<cite>Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev. <em>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</em> <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a> (2026).</cite>
+</div>
+
+<h2>Code Examples</h2>
+<p>Here are some examples of common tasks in <span class="vanillajs">Vanilla AGENTS.md</span> and other formats:</p>
+
+<h3>Tell the agent to run tests</h3>
+<table class="examples">
+<tr>
+<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Testing
+Run `pnpm test` before opening a PR.</td></tr>
+<tr><th>.cursorrules</th><td class="code">{
+  "rules": [
+    {
+      "name": "test-policy",
+      "description": "Tests must pass before PR",
+      "trigger": "pre-pr",
+      "command": "pnpm test",
+      "scope": "*"
+    }
+  ]
+}</td></tr>
+</table>
+
+<h3>Add a new build command</h3>
+<table class="examples">
+<tr>
+<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Build
+Use `pnpm build` to produce the production bundle.</td></tr>
+<tr><th>Per-tool config update</th><td class="code">$EDITOR .cursorrules
+$EDITOR .windsurfrules
+$EDITOR .clinerules
+$EDITOR .github/copilot-instructions.md
+$EDITOR .aider.conf.yml
+$EDITOR jules.config.json
+$EDITOR codex/build.toml
+$EDITOR factory.yaml
+# ... ping teammate to update theirs too</td></tr>
+</table>
+
+<h2>Further Reading</h2>
+<p>For more information about <span class="vanillajs">Vanilla AGENTS.md</span>:</p>
+<ul>
+<li>read the <a target="_blank" rel="noopener" href="https://agents.md"><span class="vanillajs">Vanilla AGENTS.md</span> specification</a></li>
+<li>browse real-world examples from <a target="_blank" rel="noopener" href="https://github.com/openai/codex/blob/main/AGENTS.md">OpenAI</a>, <a target="_blank" rel="noopener" href="https://github.com/apache/airflow/blob/main/AGENTS.md">Apache Airflow</a>, <a target="_blank" rel="noopener" href="https://github.com/temporalio/temporal/blob/main/AGENTS.md">Temporal</a>, and <a target="_blank" rel="noopener" href="https://github.com/PlutoLang/Pluto/blob/main/AGENTS.md">PlutoLang</a></li>
+<li>read Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</em> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2602.11988">arXiv:2602.11988</a> &mdash; <strong>recommended reading before writing your second sentence</strong></li>
+<li>or learn more about the <a target="_blank" rel="noopener" href="https://www.linuxfoundation.org/">Agentic AI Foundation</a> at the Linux Foundation</li>
+</ul>
+
+<p>When powering your repositories with <span class="vanillajs">Vanilla AGENTS.md</span>, feel free to use this handy badge! <span class="badge">Powered by AGENTS.md</span></p>
+
+<div id="skyscraper">
+<p style="font-family:'Tangerine',cursive;font-size:24pt;color:#9e946e;line-height:1;margin:0;font-weight:700;">Vanilla AGENTS.md</p>
+<p style="margin:0.5em 0;">a fast, lightweight, cross-platform format</p>
+<p style="margin:1em 0;font-family:monospace;font-size:9pt;background:#f8f8f8;padding:0.5em;border:1px solid #dddddd;">$ touch AGENTS.md<br/># done.</p>
+<p style="margin:1em 0;font-size:9pt;">Already supported by every coding agent you&rsquo;ve heard of.</p>
+<p style="margin:1em 0;font-size:9pt;"><a href="https://github.com/ingo-eichhorst/vanilla-agents-md" target="_blank" rel="noopener">source on GitHub</a></p>
+</div>
+</div><!--/content-->
+</body>
+</html>
