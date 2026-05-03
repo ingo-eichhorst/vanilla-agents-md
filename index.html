@@ -280,7 +280,18 @@ table th, table td {
 
 table.comparison {
   width: 100%;
-  table-layout: auto;
+  table-layout: fixed;
+}
+table.comparison th:nth-child(1), table.comparison td:nth-child(1) {
+  width: 22%;
+  word-break: break-word;
+}
+table.comparison th:nth-child(2), table.comparison td:nth-child(2) {
+  width: 45%;
+}
+table.comparison th:nth-child(3), table.comparison td:nth-child(3) {
+  width: 33%;
+  white-space: nowrap;
 }
 table.comparison td {
   white-space: nowrap;
@@ -290,7 +301,6 @@ table.comparison td.code {
   word-break: break-word;
   overflow-wrap: anywhere;
   font-size: 9pt;
-  max-width: 0;
 }
 table.comparison td.corner {
   border-left: none;
@@ -299,8 +309,6 @@ table.comparison td.corner {
 table.comparison td.ops {
   padding: 0;
   line-height: 1.5em;
-  width: 35%;
-  white-space: nowrap;
 }
 table.comparison td.ops .container {
   position: relative;
