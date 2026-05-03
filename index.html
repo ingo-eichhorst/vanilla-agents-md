@@ -133,27 +133,28 @@ table td .vanillajs {
 h1 {
   position: relative;
   margin: 0;
-  height: 240px;
-  line-height: 240px;
+  height: 180px;
+  line-height: 180px;
   text-align: center;
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(72pt, 14vw, 120pt);
-  letter-spacing: -0.015em;
+  font-size: clamp(46pt, 7vw, 72pt);
+  letter-spacing: -0.005em;
   color: var(--vanilla);
   text-shadow:
     0 0 1px rgba(31, 28, 22, 0.55),
-    0 0 22px rgba(243, 229, 171, 0.9),
-    0 2px 3px rgba(94, 85, 48, 0.32);
+    0 0 18px rgba(243, 229, 171, 0.85),
+    0 2px 2px rgba(94, 85, 48, 0.28);
+  white-space: nowrap;
 }
 h1 span { position: relative; z-index: 1; display: inline-block; }
 h1 .bg-glyph {
   position: absolute;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  width: 280px; height: 170px;
+  width: 200px; height: 122px;
   margin: 0;
-  opacity: 0.06;
+  opacity: 0.07;
   z-index: 0;
   pointer-events: none;
 }
@@ -1071,7 +1072,7 @@ $EDITOR factory.yaml
 </table>
 
 <h2>Production Deployments</h2>
-<p>Want to see <span class="vanillajs">Vanilla AGENTS.md</span> in real-world action? Browse these public GitHub repositories. Every one was built (or substantially co-authored) by a coding agent &mdash; and every one ships with <strong>zero</strong> context files. No <span class="code">AGENTS.md</span>, no <span class="code">CLAUDE.md</span>, not a <span class="code">.cursorrules</span> in sight. Verified <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/PRODUCTION.md" target="_blank" rel="noopener">2026-05-03</a>.</p>
+<p>Want to see <span class="vanillajs">Vanilla AGENTS.md</span> in real-world action? Browse these public GitHub repositories. Every one was built (or substantially co-authored) by a coding agent &mdash; and every one ships with Vanilla AGENTS.md. Verified <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/PRODUCTION.md" target="_blank" rel="noopener">2026-05-03</a>.</p>
 <ul class="deployments">
 <li><a target="_blank" rel="noopener" href="https://github.com/rdumasia303/deepseek_ocr_app"><strong>rdumasia303/deepseek_ocr_app</strong></a> &mdash; 1.8k&nbsp;stars. &ldquo;A quick vibe coded app for deepseek OCR.&rdquo; Commits carry <span class="code">Co-Authored-By: Claude Opus 4.6</span>; security hardening landed via Claude branches.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/deutsia/deutsia-radio"><strong>deutsia/deutsia-radio</strong></a> &mdash; privacy-focused Android radio with I2P, Tor, and clearnet streaming. <em>39 of the most recent 100 commits</em> are authored directly by <span class="code">Claude &lt;noreply@anthropic.com&gt;</span>.</li>
@@ -1087,7 +1088,6 @@ $EDITOR factory.yaml
 <li>read the <a target="_blank" rel="noopener" href="vanilla_specs.txt"><span class="vanillajs">Vanilla AGENTS.md</span> specification</a> (<em>warning: extensive</em>)</li>
 <li>read the <a target="_blank" rel="noopener" href="https://agents.md">upstream AGENTS.md format</a> at agents.md</li>
 <li>read Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</em> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2602.11988">arXiv:2602.11988</a> &mdash; <strong>recommended reading before writing your second sentence</strong></li>
-<li>or learn more about the <a target="_blank" rel="noopener" href="https://www.linuxfoundation.org/">Agentic AI Foundation</a> at the Linux Foundation</li>
 </ul>
 
 <p>When powering your repositories with <span class="vanillajs">Vanilla AGENTS.md</span>, feel free to use this handy badge! <span class="badge">Powered by VANILLA AGENTS.md</span></p>
