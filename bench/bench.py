@@ -42,6 +42,7 @@ RESULTS_JSON = ROOT / "results.json"
 RESULTS_MD = ROOT / "RESULTS.md"
 
 AGENTS_MD = FIXTURES / "AGENTS.md"
+EMPTY_AGENTS_MD = FIXTURES / "AGENTS.md.production"
 CURSORRULES = FIXTURES / ".cursorrules"
 YAML_FILE = FIXTURES / "agent.yaml"
 JSON_FILE = FIXTURES / "agent.json"
@@ -79,6 +80,13 @@ def parse_agents_md() -> str:
         return f.read()
 
 
+def parse_agents_md_production() -> str:
+    # Production AGENTS.md per Gloaguen et al. (2026): the file is empty,
+    # so the read() returns "" immediately. Genuinely a no-op for the agent.
+    with open(EMPTY_AGENTS_MD, "r", encoding="utf-8") as f:
+        return f.read()
+
+
 def parse_cursorrules() -> str:
     with open(CURSORRULES, "r", encoding="utf-8") as f:
         return f.read()
@@ -111,7 +119,8 @@ def parse_toml() -> dict:
 
 
 PARSE_BENCHMARKS = [
-    ("Vanilla AGENTS.md", "open(AGENTS.md).read()", parse_agents_md),
+    ("Vanilla AGENTS.md (production)", "open(empty AGENTS.md).read()", parse_agents_md_production),
+    ("Vanilla AGENTS.md (with content)", "open(AGENTS.md).read()", parse_agents_md),
     (".cursorrules",      "open(.cursorrules).read()", parse_cursorrules),
     ("TOML",              "tomllib.load(open(agent.toml,'rb'))", parse_toml),
     ("JSON",              "json.load(open(agent.json))", parse_json),

@@ -2,7 +2,7 @@
 
 _CPython 3.14.3 on arm64 / Darwin 24.6.0, PyYAML 6.0.3, jsonschema 4.26.0._
 
-_Generated 2026-05-03T20:51:48Z._
+_Generated 2026-05-03T21:27:55Z._
 
 ## Parse instructions for a coding agent
 
@@ -10,13 +10,14 @@ Open one config file from disk and turn it into a usable in-memory representatio
 
 | Format | Snippet | ops/sec | relative |
 |---|---|---:|---:|
-| .cursorrules | `open(.cursorrules).read()` | 66,576 | 100.00% |
-| Vanilla AGENTS.md | `open(AGENTS.md).read()` | 64,456 | 96.82% |
-| JSON | `json.load(open(agent.json))` | 48,348 | 72.62% |
-| XML | `ET.parse(agent.xml).getroot()` | 24,945 | 37.47% |
-| TOML | `tomllib.load(open(agent.toml,'rb'))` | 8,528 | 12.81% |
-| YAML | `yaml.safe_load(open(agent.yaml))` | 817 | 1.23% |
-| JSON + schema | `jsonschema.validate(json.load(...), SCHEMA)` | 814 | 1.22% |
+| Vanilla AGENTS.md (production) | `open(empty AGENTS.md).read()` | 71,479 | 100.00% |
+| .cursorrules | `open(.cursorrules).read()` | 70,187 | 98.19% |
+| Vanilla AGENTS.md (with content) | `open(AGENTS.md).read()` | 68,699 | 96.11% |
+| JSON | `json.load(open(agent.json))` | 44,766 | 62.63% |
+| XML | `ET.parse(agent.xml).getroot()` | 25,061 | 35.06% |
+| TOML | `tomllib.load(open(agent.toml,'rb'))` | 8,329 | 11.65% |
+| YAML | `yaml.safe_load(open(agent.yaml))` | 805 | 1.13% |
+| JSON + schema | `jsonschema.validate(json.load(...), SCHEMA)` | 803 | 1.12% |
 
 ## Update instructions across 12 different coding agents
 
@@ -24,8 +25,8 @@ Persist one change of agent guidance to disk. Vanilla AGENTS.md writes one file;
 
 | Approach | Snippet | ops/sec | relative |
 |---|---|---:|---:|
-| Vanilla AGENTS.md | `write(AGENTS.md)` | 15,233 | 100.00% |
-| Per-tool config files (12 files) | `for f in [.cursorrules, .windsurfrules, ...]: write(f)` | 1,198 | 7.86% |
+| Vanilla AGENTS.md | `write(AGENTS.md)` | 15,529 | 100.00% |
+| Per-tool config files (12 files) | `for f in [.cursorrules, .windsurfrules, ...]: write(f)` | 1,204 | 7.75% |
 
 ## Methodology
 
