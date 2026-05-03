@@ -508,8 +508,14 @@ function customizer_overhead() {
   var rate = 100 - drop;
   dom.overhead.textContent = rate + "%  (Δ −" + drop + "%)";
 }
-function noop_download(e) {
+function trigger_download(e) {
   e.preventDefault();
+  var a = document.createElement("a");
+  a.href = "AGENTS.md";
+  a.download = "AGENTS.md";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
   return false;
 }
 </script>
@@ -531,8 +537,8 @@ function noop_download(e) {
 <div id="customizer">
 <div id="customizer-options"><label class="selected"><input type="checkbox" name="core" checked="checked" disabled="disabled"/> Core Functionality</label></div>
 <div id="customizer-estimate"><strong>Final size:</strong> <span id="customizer-estimate-uncompressed">0 bytes</span> uncompressed, <span id="customizer-estimate-gzipped">25 bytes</span> gzipped. <label><input type="checkbox" onchange="customizer_hrsize(this.checked);"/> Show human-readable sizes</label></div>
-<div id="customizer-overhead">Predicted agent task-success rate: <span class="pct" id="customizer-overhead-pct">100%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
-<div id="customizer-download"><form action="?download" method="post" onsubmit="return noop_download(event)"><input type="submit" value="Download"/></form></div>
+<div id="customizer-overhead">Predicted agent task-success rate (compared to alternatives): <span class="pct" id="customizer-overhead-pct">100%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
+<div id="customizer-download"><form action="AGENTS.md" method="get" onsubmit="return trigger_download(event)"><input type="submit" value="Download"/></form></div>
 </div>
 
 <h2>Testimonials</h2>
