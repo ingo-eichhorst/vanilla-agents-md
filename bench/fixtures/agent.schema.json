@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["project", "setup", "build", "test"],
+  "properties": {
+    "project": {"type": "string"},
+    "setup": {
+      "type": "object",
+      "required": ["command"],
+      "properties": {
+        "command": {"type": "string"},
+        "description": {"type": "string"}
+      }
+    },
+    "build": {
+      "type": "object",
+      "required": ["command"],
+      "properties": {
+        "command": {"type": "string"},
+        "output": {"type": "string"},
+        "description": {"type": "string"}
+      }
+    },
+    "test": {
+      "type": "object",
+      "required": ["command"],
+      "properties": {
+        "command": {"type": "string"},
+        "required_before_pr": {"type": "boolean"},
+        "description": {"type": "string"}
+      }
+    },
+    "code_style": {
+      "type": "object",
+      "properties": {
+        "indentation": {"type": "string"},
+        "quotes": {"type": "string"},
+        "trailing_commas": {"type": "boolean"}
+      }
+    },
+    "pull_requests": {
+      "type": "object",
+      "properties": {
+        "title_format": {"type": "string"},
+        "prefixes": {"type": "array", "items": {"type": "string"}},
+        "one_change_per_pr": {"type": "boolean"},
+        "link_issue": {"type": "boolean"}
+      }
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "never_commit": {"type": "array", "items": {"type": "string"}},
+        "audit_command": {"type": "string"}
+      }
+    }
+  }
+}

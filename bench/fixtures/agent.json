@@ -1,0 +1,32 @@
+{
+  "project": "example-app",
+  "setup": {
+    "command": "pnpm install",
+    "description": "Run before working on this repo."
+  },
+  "build": {
+    "command": "pnpm build",
+    "output": "dist/",
+    "description": "Produce a production bundle."
+  },
+  "test": {
+    "command": "pnpm test",
+    "required_before_pr": true,
+    "description": "All tests must pass."
+  },
+  "code_style": {
+    "indentation": "2-space",
+    "quotes": "single",
+    "trailing_commas": true
+  },
+  "pull_requests": {
+    "title_format": "conventional-commits",
+    "prefixes": ["feat", "fix", "chore", "docs", "refactor", "test"],
+    "one_change_per_pr": true,
+    "link_issue": true
+  },
+  "security": {
+    "never_commit": [".env", ".env.local"],
+    "audit_command": "pnpm audit"
+  }
+}

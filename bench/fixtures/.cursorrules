@@ -1,0 +1,21 @@
+# example-app cursor rules
+
+Setup: run `pnpm install` before working on this repo.
+
+Build: run `pnpm build` to produce a production bundle in `dist/`.
+
+Test: run `pnpm test` before opening a PR. All tests must pass.
+
+Code style:
+- 2-space indentation
+- Single quotes for strings
+- Trailing commas in multi-line literals
+
+Pull requests:
+- Title format: Conventional Commits (feat:, fix:, chore:, etc.)
+- One logical change per PR
+- Link the related issue in the description
+
+Security:
+- Never commit .env files
+- Run `pnpm audit` before publishing

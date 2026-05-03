@@ -278,8 +278,19 @@ table th, table td {
   padding: 2px;
 }
 
+table.comparison {
+  width: 100%;
+  table-layout: auto;
+}
 table.comparison td {
   white-space: nowrap;
+}
+table.comparison td.code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  font-size: 9pt;
+  max-width: 0;
 }
 table.comparison td.corner {
   border-left: none;
@@ -288,7 +299,8 @@ table.comparison td.corner {
 table.comparison td.ops {
   padding: 0;
   line-height: 1.5em;
-  width: 100%;
+  width: 35%;
+  white-space: nowrap;
 }
 table.comparison td.ops .container {
   position: relative;
@@ -532,32 +544,33 @@ function noop_download(e) {
 <h3>Parse instructions for a coding agent</h3>
 <table class="comparison">
 <tr><td class="corner"></td><th>Code</th><th>ops / sec</th></tr>
-<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">cat AGENTS.md</td><td class="ops"><div class="container"><span class="label">12,137,211 </span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
-<tr><th>.cursorrules</th><td class="code">parse_cursor_rules(&quot;.cursorrules&quot;)</td><td class="ops"><div class="container"><span class="label">5,443,343 </span><div class="bar" style="width:44.85%;">&nbsp;</div></div></td></tr>
-<tr><th>.windsurfrules</th><td class="code">windsurf.config.load(&quot;.windsurfrules&quot;)</td><td class="ops"><div class="container"><span class="label">3,640,734 </span><div class="bar" style="width:30.00%;">&nbsp;</div></div></td></tr>
-<tr><th>YAML config</th><td class="code">yaml.safe_load(open(&quot;agent.yaml&quot;))</td><td class="ops"><div class="container"><span class="label">1,213,721 </span><div class="bar" style="width:10.00%;">&nbsp;</div></div></td></tr>
-<tr><th>JSON-schema config</th><td class="code">jsonschema.validate(json.load(f), schema)</td><td class="ops"><div class="container"><span class="label">364,116 </span><div class="bar" style="width:3.00%;">&nbsp;</div></div></td></tr>
-<tr><th>XML config</th><td class="code">ET.parse(&quot;agent.xml&quot;).getroot()</td><td class="ops"><div class="container"><span class="label">60,686 </span><div class="bar" style="width:0.50%;">&nbsp;</div></div></td></tr>
+<tr><th>.cursorrules</th><td class="code">open(&quot;.cursorrules&quot;).read()</td><td class="ops"><div class="container"><span class="label">66,576</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
+<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">open(&quot;AGENTS.md&quot;).read()</td><td class="ops"><div class="container"><span class="label">64,456</span><div class="bar" style="width:96.83%;">&nbsp;</div></div></td></tr>
+<tr><th>JSON</th><td class="code">json.load(open(&quot;agent.json&quot;))</td><td class="ops"><div class="container"><span class="label">48,348</span><div class="bar" style="width:72.62%;">&nbsp;</div></div></td></tr>
+<tr><th>XML</th><td class="code">ET.parse(&quot;agent.xml&quot;).getroot()</td><td class="ops"><div class="container"><span class="label">24,945</span><div class="bar" style="width:37.47%;">&nbsp;</div></div></td></tr>
+<tr><th>TOML</th><td class="code">tomllib.load(open(&quot;agent.toml&quot;,&quot;rb&quot;))</td><td class="ops"><div class="container"><span class="label">8,528</span><div class="bar" style="width:12.81%;">&nbsp;</div></div></td></tr>
+<tr><th>YAML</th><td class="code">yaml.safe_load(open(&quot;agent.yaml&quot;))</td><td class="ops"><div class="container"><span class="label">817</span><div class="bar" style="width:1.23%;">&nbsp;</div></div></td></tr>
+<tr><th>JSON + schema</th><td class="code">jsonschema.validate(json.load(f), schema)</td><td class="ops"><div class="container"><span class="label">814</span><div class="bar" style="width:1.22%;">&nbsp;</div></div></td></tr>
 </table>
+<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Real measurements (CPython 3.14.3, arm64). <span class="vanillajs">Vanilla AGENTS.md</span> ties with <span class="code">.cursorrules</span> within noise (±10%) &mdash; both are plain-text reads &mdash; and runs &gt;80&times; the speed of YAML and JSON+schema. Reproduce with <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/bench.py" target="_blank" rel="noopener"><code>bench/bench.py</code></a>; raw output in <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/results.json" target="_blank" rel="noopener"><code>results.json</code></a>.</p>
 
 <h3>Update instructions across 12 different coding agents</h3>
 <table class="comparison">
 <tr><td class="corner"></td><th>Action</th><th>ops / sec</th></tr>
-<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">$EDITOR AGENTS.md</td><td class="ops"><div class="container"><span class="label">8,280,893</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
-<tr><th>Per-tool config files</th><td class="code">for f in .cursorrules .windsurfrules .clinerules ...; do $EDITOR $f; done</td><td class="ops"><div class="container"><span class="label">62,872</span><div class="bar" style="width:0.76%;">&nbsp;</div></div></td></tr>
-<tr><th>Tool-specific UI panels</th><td class="code">click(Settings).click(Rules).edit().save() &times; 12</td><td class="ops"><div class="container"><span class="label">19,449</span><div class="bar" style="width:0.23%;">&nbsp;</div></div></td></tr>
-<tr><th>Slack thread to teammate</th><td class="code">slack.send(&quot;hey can you also update yours&quot;)</td><td class="ops"><div class="container"><span class="label">5,457</span><div class="bar" style="width:0.07%;">&nbsp;</div></div></td></tr>
+<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">write(&quot;AGENTS.md&quot;)</td><td class="ops"><div class="container"><span class="label">15,233</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
+<tr><th>Per-tool config files (12&times;)</th><td class="code">for f in [.cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, .aider.conf.yml, .junie/guidelines.md, CLAUDE.md, .roomodes, .codex/config.toml, .factory/agent.md, .continuerules, .zedrules]: write(f)</td><td class="ops"><div class="container"><span class="label">1,198</span><div class="bar" style="width:7.86%;">&nbsp;</div></div></td></tr>
 </table>
+<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Real measurements: writing the same instruction payload to one file vs. twelve. The 12.7&times; gap matches what you&rsquo;d expect &mdash; per-tool configs scale linearly with the number of agents you support.</p>
 
-<h3>Task success rate vs. context size</h3>
-<table class="comparison">
-<tr><td class="corner"></td><th>Configuration</th><th>relative success</th></tr>
-<tr><th>Empty AGENTS.md</th><td class="code">touch AGENTS.md</td><td class="ops"><div class="container"><span class="label">100.0%</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
-<tr><th>Minimal AGENTS.md</th><td class="code">echo &quot;Run \`pnpm test\`.&quot; &gt; AGENTS.md</td><td class="ops"><div class="container"><span class="label">95.0%</span><div class="bar" style="width:95.00%;">&nbsp;</div></div></td></tr>
-<tr><th>Comprehensive AGENTS.md</th><td class="code"># overview, setup, build, test, style, security, PR fmt, deploy</td><td class="ops"><div class="container"><span class="label">78.0%</span><div class="bar" style="width:78.00%;">&nbsp;</div></div></td></tr>
-<tr><th>Exhaustive monorepo AGENTS.md</th><td class="code">find . -name AGENTS.md | wc -l   # 47</td><td class="ops"><div class="container"><span class="label">62.0%</span><div class="bar" style="width:62.00%;">&nbsp;</div></div></td></tr>
+<h3>Task success rate &amp; cost from the AGENTS.md study</h3>
+<table>
+<tr><th>Configuration</th><th>&Delta; success rate</th><th>&Delta; inference cost</th><th>Source</th></tr>
+<tr><td>No context file</td><td style="text-align:right;">(baseline)</td><td style="text-align:right;">(baseline)</td><td>Gloaguen et al., 2026, &sect;4.2</td></tr>
+<tr><td>LLM-generated AGENTS.md, SWE-bench Lite</td><td style="text-align:right;color:#b85c5c;">&minus;0.5%</td><td style="text-align:right;color:#b85c5c;">+20%</td><td><a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>, Fig. 3 / Table 2</td></tr>
+<tr><td>LLM-generated AGENTS.md, AGENTBENCH</td><td style="text-align:right;color:#b85c5c;">&minus;2%</td><td style="text-align:right;color:#b85c5c;">+23%</td><td><a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>, Fig. 3 / Table 2</td></tr>
+<tr><td>Developer-written AGENTS.md, AGENTBENCH</td><td style="text-align:right;color:#5c8a5c;">+4%</td><td style="text-align:right;color:#b85c5c;">up to +19%</td><td><a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>, &sect;4.2</td></tr>
 </table>
-<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Methodology adapted from Gloaguen et al., <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>. <span class="vanillajs">Vanilla AGENTS.md</span> outperforms all other formats &mdash; including itself, when it gets too long.</p>
+<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Numbers are taken verbatim from Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md</em>, <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a> (Feb 2026), Section 4.2 &ldquo;Main Results&rdquo;. Models tested: Sonnet-4.5, GPT-5.2, GPT-5.1 mini, Qwen3-30B-coder. Benchmarks: SWE-bench Lite (300 tasks) and AGENTBENCH (138 tasks across 12 repos with developer-written context files).</p>
 
 <div class="science">
 <h3>The Science</h3>
@@ -607,16 +620,27 @@ $EDITOR factory.yaml
 # ... ping teammate to update theirs too</td></tr>
 </table>
 
+<h2>Production Deployments</h2>
+<p>Want to see <span class="vanillajs">Vanilla AGENTS.md</span> in real-world action? Browse these public GitHub repositories. Every one was built (or substantially co-authored) by a coding agent &mdash; and every one ships with <strong>zero</strong> context files. No <span class="code">AGENTS.md</span>, no <span class="code">CLAUDE.md</span>, not a <span class="code">.cursorrules</span> in sight. Verified <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/PRODUCTION.md" target="_blank" rel="noopener">2026-05-03</a>.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rdumasia303/deepseek_ocr_app"><strong>rdumasia303/deepseek_ocr_app</strong></a> &mdash; 1.8k&nbsp;stars. &ldquo;A quick vibe coded app for deepseek OCR.&rdquo; Commits carry <span class="code">Co-Authored-By: Claude Opus 4.6</span>; security hardening landed via Claude branches.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/deutsia/deutsia-radio"><strong>deutsia/deutsia-radio</strong></a> &mdash; privacy-focused Android radio with I2P, Tor, and clearnet streaming. <em>39 of the most recent 100 commits</em> are authored directly by <span class="code">Claude &lt;noreply@anthropic.com&gt;</span>.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dannystuart/carousel-standalone"><strong>dannystuart/carousel-standalone</strong></a> &mdash; themed card carousel with Fantasy and Cosmos visual modes. README: &ldquo;Built entirely through conversation with Claude Code.&rdquo; 16 of 18 commits are Claude co-authored.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nraford7/CrateBot5"><strong>nraford7/CrateBot5</strong></a> &mdash; audio fingerprinting + ML-driven music analysis suite for DJs (Swift). 26 of the most recent 27 commits are Claude co-authored.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/enablement-ch/clio-ghostwriter"><strong>enablement-ch/clio-ghostwriter</strong></a> &mdash; LinkedIn ghostwriter pipeline (scrape &rarr; topic ID &rarr; write &rarr; QA &rarr; ClickUp), driven by a Slack bot. README: &ldquo;Built with Claude Code.&rdquo;</li>
+</ul>
+<p style="font-size:9pt;color:#999999;margin-top:-0.5em;"><span class="vanillajs">Vanilla AGENTS.md</span> is so lightweight, your agent doesn&rsquo;t even know it&rsquo;s missing.</p>
+
 <h2>Further Reading</h2>
 <p>For more information about <span class="vanillajs">Vanilla AGENTS.md</span>:</p>
 <ul>
-<li>read the <a target="_blank" rel="noopener" href="https://agents.md"><span class="vanillajs">Vanilla AGENTS.md</span> specification</a></li>
-<li>browse real-world examples from <a target="_blank" rel="noopener" href="https://github.com/openai/codex/blob/main/AGENTS.md">OpenAI</a>, <a target="_blank" rel="noopener" href="https://github.com/apache/airflow/blob/main/AGENTS.md">Apache Airflow</a>, <a target="_blank" rel="noopener" href="https://github.com/temporalio/temporal/blob/main/AGENTS.md">Temporal</a>, and <a target="_blank" rel="noopener" href="https://github.com/PlutoLang/Pluto/blob/main/AGENTS.md">PlutoLang</a></li>
+<li>read the <a target="_blank" rel="noopener" href="vanilla_specs.txt"><span class="vanillajs">Vanilla AGENTS.md</span> specification</a> (<em>warning: extensive</em>)</li>
+<li>read the <a target="_blank" rel="noopener" href="https://agents.md">upstream AGENTS.md format</a> at agents.md</li>
 <li>read Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</em> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2602.11988">arXiv:2602.11988</a> &mdash; <strong>recommended reading before writing your second sentence</strong></li>
 <li>or learn more about the <a target="_blank" rel="noopener" href="https://www.linuxfoundation.org/">Agentic AI Foundation</a> at the Linux Foundation</li>
 </ul>
 
-<p>When powering your repositories with <span class="vanillajs">Vanilla AGENTS.md</span>, feel free to use this handy badge! <span class="badge">Powered by AGENTS.md</span></p>
+<p>When powering your repositories with <span class="vanillajs">Vanilla AGENTS.md</span>, feel free to use this handy badge! <span class="badge">Powered by VANILLA AGENTS.md</span></p>
 
 <div id="skyscraper">
 <p style="font-family:'Tangerine',cursive;font-size:24pt;color:#9e946e;line-height:1;margin:0;font-weight:700;">Vanilla AGENTS.md</p>

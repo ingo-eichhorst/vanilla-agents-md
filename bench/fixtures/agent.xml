@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent>
+  <project>example-app</project>
+  <setup command="pnpm install">
+    <description>Run before working on this repo.</description>
+  </setup>
+  <build command="pnpm build" output="dist/">
+    <description>Produce a production bundle.</description>
+  </build>
+  <test command="pnpm test" requiredBeforePr="true">
+    <description>All tests must pass.</description>
+  </test>
+  <codeStyle>
+    <indentation>2-space</indentation>
+    <quotes>single</quotes>
+    <trailingCommas>true</trailingCommas>
+  </codeStyle>
+  <pullRequests titleFormat="conventional-commits" oneChangePerPr="true" linkIssue="true">
+    <prefix>feat</prefix>
+    <prefix>fix</prefix>
+    <prefix>chore</prefix>
+    <prefix>docs</prefix>
+    <prefix>refactor</prefix>
+    <prefix>test</prefix>
+  </pullRequests>
+  <security auditCommand="pnpm audit">
+    <neverCommit>.env</neverCommit>
+    <neverCommit>.env.local</neverCommit>
+  </security>
+</agent>
