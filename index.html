@@ -4,389 +4,791 @@
 <meta charset="utf-8"/>
 <title>Vanilla AGENTS.md</title>
 <meta name="description" content="Vanilla AGENTS.md is a fast, lightweight, cross-platform format for instructing coding agents."/>
-<meta name="viewport" content="width=800"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta property="og:title" content="Vanilla AGENTS.md"/>
 <meta property="og:description" content="A fast, lightweight, cross-platform format for instructing coding agents. 0 bytes, scientifically optimal."/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..600,30..100&family=JetBrains+Mono:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet"/>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
 <style type="text/css">
+:root {
+  --paper:        #fbf6e7;
+  --paper-tint:   #f4ecd5;
+  --paper-warm:   #fff8e3;
+  --linen:        #e8ddc1;
+  --linen-dark:   #d6c9a4;
+
+  --ink:          #1f1c16;
+  --ink-soft:     #4a4232;
+  --ink-faint:    #8a7e64;
+
+  --rule:         #d9cda9;
+  --rule-soft:    #ece1c4;
+
+  --vanilla:      #F3E5AB;
+  --vanilla-deep: #e6d27a;
+  --vanilla-glow: #fff2bf;
+  --bean:         #8d7e4a;
+  --bean-deep:    #5e5530;
+  --terracotta:   #a14a4a;
+  --moss:         #4f6c44;
+
+  --display: 'Tangerine', cursive;
+  --serif:   'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
+  --mono:    'JetBrains Mono', 'IBM Plex Mono', Menlo, monospace;
+
+  --content-w: 760px;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 17px; }
+@media (max-width: 720px) { html { font-size: 16px; } }
+
 body {
-  font-family: sans-serif;
-  background-color: #cccccc;
   margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-feature-settings: "kern", "ss01";
+  font-variation-settings: "opsz" 14, "SOFT" 60;
+  line-height: 1.62;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, var(--paper-warm), transparent 60%),
+    var(--linen);
+  background-attachment: fixed;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='8' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.13  0 0 0 0 0.11  0 0 0 0 0.07  0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 #content {
-  margin: 0 auto;
-  padding: 15px;
-  width: 750px;
-  background-color: #ffffff;
-  box-shadow: 0 0 5px 5px #999999;
   position: relative;
+  width: var(--content-w);
+  max-width: calc(100% - 32px);
+  margin: 56px auto 96px;
+  padding: clamp(28px, 5vw, 64px) clamp(28px, 6vw, 64px) clamp(40px, 6vw, 80px);
+  background:
+    radial-gradient(ellipse 720px 420px at 50% 8%, rgba(243, 229, 171, 0.55), transparent 65%),
+    var(--paper);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 0.5px 0 rgba(0,0,0,0.06),
+    0 14px 28px -20px rgba(31, 28, 22, 0.32),
+    0 48px 96px -36px rgba(31, 28, 22, 0.28);
 }
-#skyscraper {
+#content::after {
+  content: "";
   position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: 50px;
-  margin-top: 50px;
-  width: 160px;
-  text-align: center;
-  font-size: 11pt;
-  color: #999999;
-}
-#skyscraper a {
-  color: #999999;
+  inset: 0;
+  border: 1px solid rgba(141, 126, 74, 0.22);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .vanillajs {
-  font-family: 'Tangerine', cursive;
-  color: #9e946e;
-  font-size: 140%;
-  padding-right: .1em;
+  font-family: var(--display);
   font-weight: 700;
+  font-style: normal;
+  color: var(--bean);
+  font-size: 1.45em;
+  letter-spacing: 0.005em;
+  padding-right: 0.05em;
+  white-space: nowrap;
 }
-.code {
-  font-family: monospace;
+
+.code, code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: rgba(243, 229, 171, 0.32);
+  padding: 0.06em 0.42em;
+  border-radius: 3px;
+  border: 1px solid var(--rule-soft);
+  color: var(--bean-deep);
   white-space: pre;
 }
 
 h1 {
+  position: relative;
   margin: 0;
-  position: relative;
-  height: 200px;
-  line-height: 180px;
+  height: 240px;
+  line-height: 240px;
   text-align: center;
-  font-size: 60pt;
-  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
-  color: #F3E5AB;
+  font-family: var(--display);
   font-weight: 700;
-  font-family: 'Tangerine', cursive;
+  font-size: clamp(72pt, 14vw, 120pt);
+  letter-spacing: -0.015em;
+  color: var(--vanilla);
+  text-shadow:
+    0 0 1px rgba(31, 28, 22, 0.55),
+    0 0 22px rgba(243, 229, 171, 0.9),
+    0 2px 3px rgba(94, 85, 48, 0.32);
 }
-h1 span {
-  position: relative;
-  z-index: 1;
-}
+h1 span { position: relative; z-index: 1; display: inline-block; }
 h1 .bg-glyph {
-  vertical-align: middle;
-  opacity: .1;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -100px;
-  margin-top: -100px;
-  width: 200px;
-  height: 200px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px; height: 170px;
+  margin: 0;
+  opacity: 0.06;
   z-index: 0;
   pointer-events: none;
 }
 
+.tagline {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  font-size: clamp(15pt, 1.85vw, 19pt);
+  line-height: 1.35;
+  color: var(--ink-soft);
+  margin: -8px auto 64px;
+  max-width: 38em;
+}
+
 h2 {
-  margin: 1em 0 0 0;
-  font-size: 25pt;
-  color: #aaaaaa;
-  font-weight: normal;
+  position: relative;
+  margin: 72px 0 18px;
+  padding-bottom: 14px;
+  font-family: var(--serif);
+  font-weight: 350;
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 90;
+  font-size: clamp(26pt, 3.6vw, 34pt);
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 56px; height: 1px;
+  background: var(--bean);
 }
 
 h3 {
-  margin: 5px;
-  font-size: 15pt;
-  color: #666666;
-  font-weight: normal;
+  margin: 28px 0 12px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "opsz" 22, "SOFT" 60;
+  font-size: 13.5pt;
+  letter-spacing: 0;
+  color: var(--bean-deep);
 }
-
-p a {
-  color: #999999;
-}
-p a:hover {
-  color: #666666;
-  text-shadow: 0 0 8px #F3E5AB, 0 0 4px #F3E5AB;
-}
-
-blockquote:before {
-  content: '\201C';
-  font-size: 28pt;
-  padding-right: .1em;
-  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
-  color: #F3E5AB;
-  font-weight: 700;
-  font-family: 'Tangerine', cursive;
-}
-blockquote {
-  font-family: 'Tangerine', cursive;
-  color: #9e946e;
-  font-size: 200%;
-  padding-right: .1em;
-  min-height: 4em;
-  margin: 0.5em 1em;
-  font-weight: 700;
-  line-height: 1.1;
-}
-blockquote:after {
-  content: '\201D';
-  font-size: 28pt;
-  text-shadow: 0 0 2px #333333, 0 0 4px #333333;
-  color: #F3E5AB;
-  font-weight: 700;
-  font-family: 'Tangerine', cursive;
-}
-blockquote .attribution {
-  display: block;
-  font-family: sans-serif;
-  font-size: 9pt;
-  color: #999999;
-  font-weight: normal;
-  margin-top: 0.4em;
-  line-height: 1.4;
-}
-
 h3 a {
   color: inherit;
   text-decoration: none;
+  border-bottom: 1px dotted var(--rule);
 }
-h3 a:hover {
-  text-decoration: underline;
-}
+h3 a:hover { border-bottom-color: var(--bean); }
 
-.tagline {
-  font-size: 16pt;
-  color: #666666;
-  text-align: center;
-  margin-bottom: 1em;
+p { margin: 0 0 1em; }
+em { font-style: italic; color: var(--ink-soft); }
+strong { font-weight: 600; color: var(--ink); }
+
+a {
+  color: var(--bean);
+  text-decoration: underline;
+  text-decoration-color: rgba(141, 126, 74, 0.4);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+a:hover {
+  color: var(--bean-deep);
+  text-decoration-color: var(--bean);
 }
 
 ul.flatlist {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
-  margin: 4px 0;
-  display: table;
-  width: 100%;
+  margin: 8px 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px 12px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.84em;
+  color: var(--ink-faint);
+  font-variation-settings: "opsz" 11, "SOFT" 60;
 }
-ul.flatlist li {
-  display: table-cell;
-  text-align: center;
-  color: #999999;
-  padding: 0 4px;
+ul.flatlist li { text-align: center; }
+@media (max-width: 720px) {
+  ul.flatlist { grid-template-columns: repeat(5, 1fr); }
 }
 
 ol.sourcecode {
-  background-color: #999999;
-  color: #ffffff;
-  font-family: monospace;
-  padding: 2px 2px 2px 3em;
-  margin: 1em 0;
+  list-style: decimal;
+  background: var(--ink);
+  color: rgba(255, 251, 242, 0.55);
+  font-family: var(--mono);
+  margin: 22px 0;
+  padding: 10px 10px 10px 48px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 ol.sourcecode li div {
-  padding-left: 1em;
-  background-color: #ffffff;
-  color: #000000;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 14px;
   white-space: pre-wrap;
-  min-height: 1.2em;
+  min-height: 1.5em;
+  font-size: 0.86em;
+  border-radius: 2px;
 }
+ol.sourcecode li div:empty::before { content: " "; color: var(--rule); }
 
+#customizer {
+  background: linear-gradient(180deg, var(--paper-warm), var(--paper-tint));
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 22px 26px;
+  margin: 24px 0 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+}
+#customizer-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+  margin-bottom: 18px;
+}
 #customizer-options label {
-  display: inline-block;
-  border-radius: 5px;
-  padding: 1px;
-  margin: 0 2px 2px 0;
-  width: 45%;
-  background-color: #cccccc;
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin: 0;
+  padding: 9px 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--serif);
+  font-size: 0.95em;
+  color: var(--ink-soft);
   cursor: pointer;
+  transition: background 130ms ease, border-color 130ms ease, color 130ms ease;
 }
 #customizer-options label:hover {
-  background-color: #dddddd;
+  background: var(--vanilla-glow);
+  border-color: var(--vanilla-deep);
+  color: var(--bean-deep);
 }
 #customizer-options label.selected {
-  background-color: #F3E5AB;
-  color: #666666;
+  background: var(--vanilla);
+  border-color: var(--bean);
+  color: var(--bean-deep);
 }
 #customizer-options label input {
-  margin-right: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  margin: 0 12px 0 0;
+  border: 1.5px solid var(--bean);
+  border-radius: 3px;
+  background: var(--paper);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 120ms ease;
 }
+#customizer-options label input:checked { background: var(--bean); }
+#customizer-options label input:checked::after {
+  content: "✓";
+  font-family: var(--display);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vanilla);
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 700;
+}
+#customizer-options label input:disabled {
+  border-color: var(--bean-deep);
+  background: var(--bean-deep);
+  cursor: default;
+}
+#customizer-options h3 {
+  grid-column: 1 / -1;
+  margin: 14px 0 4px;
+  padding: 0 0 6px;
+  font-family: var(--serif);
+  font-style: normal;
+  font-weight: 600;
+  font-variation-settings: "opsz" 11;
+  font-size: 0.66em;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--ink-faint);
+  border-bottom: 1px dashed var(--rule);
+}
+
 #customizer-estimate {
-  margin: 0.5em 0;
+  margin: 14px 0 6px;
+  font-family: var(--serif);
+  font-size: 0.94em;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+#customizer-estimate strong { color: var(--ink); font-weight: 600; }
+#customizer-estimate-uncompressed,
+#customizer-estimate-gzipped {
+  display: inline-block;
+  min-width: 56px;
+  font-family: var(--mono);
+  font-size: 0.92em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
 }
 #customizer-estimate span.throbber {
   display: inline-block;
   vertical-align: middle;
-  width: 16px;
-  height: 16px;
-  background: #cccccc;
+  width: 12px; height: 12px;
   border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  border-top-color: var(--bean);
   animation: spin 0.8s linear infinite;
+  background: transparent;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 #customizer-estimate label {
-  font-size: smaller;
-  display: inline-block;
-  background-color: #dddddd;
-  padding: 1px .75em 1px .5em;
-  border-radius: 1em;
-  color: #666666;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.82em;
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+  color: var(--ink-faint);
+  cursor: pointer;
+  border-radius: 0;
 }
-#customizer-estimate label:hover {
-  background-color: #eeeeee;
-  color: #999999;
-}
-#customizer-estimate label input {
-  vertical-align: bottom;
-}
+#customizer-estimate label:hover { color: var(--bean); }
+#customizer-estimate label input { margin-right: 6px; vertical-align: -1px; }
+
 #customizer-overhead {
-  margin: 0.5em 0;
-  font-size: 10pt;
-  color: #666666;
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.88em;
+  color: var(--ink-soft);
 }
 #customizer-overhead .pct {
-  font-weight: bold;
-  color: #b85c5c;
-  font-family: monospace;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--terracotta);
+  letter-spacing: -0.01em;
 }
 #customizer-overhead a {
-  color: #999999;
-  font-size: 8pt;
+  font-size: 0.82em;
+  color: var(--ink-faint);
+  margin-left: 4px;
+  text-decoration-color: var(--rule);
 }
-#customizer-download {
-  margin-top: 0.5em;
-}
+#customizer-overhead a:hover { color: var(--bean); }
+
+#customizer-download { margin-top: 18px; }
+#customizer-download form { margin: 0; }
 #customizer-download input[type=submit] {
-  font-size: 14pt;
-  padding: 6px 18px;
-  background: #F3E5AB;
-  border: 1px solid #9e946e;
-  color: #666666;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-size: 15pt;
+  letter-spacing: 0.005em;
+  padding: 11px 26px;
+  background: linear-gradient(180deg, var(--vanilla-glow), var(--vanilla));
+  border: 1px solid var(--bean);
+  color: var(--bean-deep);
   border-radius: 4px;
   cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.65),
+    0 1px 1px rgba(94, 85, 48, 0.18),
+    0 6px 14px -8px rgba(94, 85, 48, 0.32);
+  transition: transform 80ms ease, box-shadow 150ms ease, background 150ms ease;
 }
 #customizer-download input[type=submit]:hover {
-  background: #fff0c0;
+  background: linear-gradient(180deg, #fff8d4, var(--vanilla-deep));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.75),
+    0 2px 2px rgba(94, 85, 48, 0.22),
+    0 12px 22px -10px rgba(94, 85, 48, 0.4);
+}
+#customizer-download input[type=submit]:active { transform: translateY(1px); }
+
+blockquote {
+  position: relative;
+  margin: 24px 0;
+  padding: 6px 56px 6px 60px;
+  min-height: 5em;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(28pt, 4vw, 40pt);
+  line-height: 1.05;
+  color: var(--bean);
+  text-align: left;
+}
+blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 0; top: -22px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 130pt;
+  color: var(--vanilla);
+  text-shadow: 0 2px 0 var(--vanilla-deep);
+  line-height: 1;
+  z-index: 0;
+}
+blockquote::after { content: ""; }
+blockquote .attribution {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: "opsz" 11, "SOFT" 50;
+  font-size: 11pt;
+  color: var(--ink-faint);
+  margin-top: 14px;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
 }
 
 table {
-  border-collapse: collapse;
-  margin-bottom: 2em;
   width: 100%;
-}
-table th {
-  white-space: nowrap;
+  border-collapse: collapse;
+  margin: 12px 0 28px;
+  font-variant-numeric: tabular-nums;
 }
 table th, table td {
-  border: 1px solid #cccccc;
-  padding: 2px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 1px dashed var(--rule);
+  text-align: left;
+  vertical-align: middle;
 }
+table th {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings: "opsz" 11;
+  font-size: 0.82em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--bean);
+}
+table tr:last-child td { border-bottom: none; }
 
-table.comparison {
-  width: 100%;
-  table-layout: fixed;
-}
-table.comparison th:nth-child(1), table.comparison td:nth-child(1) {
-  width: 22%;
+table.comparison { table-layout: fixed; }
+table.comparison th:nth-child(1),
+table.comparison td:nth-child(1) {
+  width: 26%;
   word-break: break-word;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: normal;
+  font-size: 0.96em;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  padding-right: 16px;
 }
-table.comparison th:nth-child(2), table.comparison td:nth-child(2) {
-  width: 45%;
-}
-table.comparison th:nth-child(3), table.comparison td:nth-child(3) {
-  width: 33%;
-  white-space: nowrap;
-}
-table.comparison td {
+table.comparison td:nth-child(1) { border-right: 1px dashed var(--rule); }
+table.comparison th:nth-child(2),
+table.comparison td:nth-child(2) { width: 42%; }
+table.comparison th:nth-child(3),
+table.comparison td:nth-child(3) {
+  width: 32%;
   white-space: nowrap;
 }
 table.comparison td.code {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  background: rgba(243, 229, 171, 0.18);
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: anywhere;
-  font-size: 9pt;
 }
 table.comparison td.corner {
-  border-left: none;
-  border-top: none;
+  border-bottom: 1px solid var(--bean);
+  background: transparent;
+  border-right: 0;
 }
-table.comparison td.ops {
-  padding: 0;
-  line-height: 1.5em;
-}
+table.comparison td.ops { padding: 0; line-height: 1.5; }
 table.comparison td.ops .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
 }
 table.comparison td.ops .label {
   position: relative;
   display: block;
-  padding: 2px;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
+  padding: 0 14px 0 0;
   text-align: right;
-  font-family: monospace;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
 }
 table.comparison td.ops .bar {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #cccccc;
+  left: 0; top: 6px; bottom: 6px;
+  background: linear-gradient(90deg, rgba(243, 229, 171, 0.45), var(--vanilla));
+  border-right: 2px solid var(--bean);
+  border-radius: 0 2px 2px 0;
+  z-index: 1;
+  transition: width 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+table.comparison tr:hover td:not(.corner) { background: rgba(243, 229, 171, 0.09); }
+
+table.examples { table-layout: fixed; margin: 8px 0 20px; }
+table.examples th {
+  width: 24%;
+  vertical-align: top;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: normal;
+  font-size: 0.96em;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  border-right: 1px dashed var(--rule);
+  padding-right: 16px;
+}
+table.examples td.code {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-wrap;
+  background: rgba(243, 229, 171, 0.16);
+  padding: 14px 16px;
+  border-radius: 4px;
+  border: 1px dashed var(--rule);
+}
+
+table:not(.comparison):not(.examples) td {
+  font-size: 0.95em;
+  vertical-align: top;
 }
 
 .science {
-  background: #fff7d6;
-  border: 1px dashed #F3E5AB;
-  padding: 1em 1.2em;
-  margin: 1em 0;
-  border-radius: 3px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(243, 229, 171, 0.55), transparent 60%),
+    var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--bean);
+  padding: 30px 34px 26px;
+  margin: 36px 0;
+  border-radius: 4px;
 }
 .science h3 {
-  margin: 0 0 0.5em 0;
-  color: #9e946e;
+  margin: 0 0 14px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-size: clamp(22pt, 3vw, 28pt);
+  letter-spacing: -0.012em;
+  color: var(--bean-deep);
+  text-transform: none;
 }
+.science p { margin: 0 0 16px; }
 .science .stats {
-  display: flex;
-  gap: 1em;
-  margin: 0.5em 0;
-  font-family: monospace;
-}
-.science .stats div {
-  flex: 1;
-  background: #ffffff;
-  padding: 0.5em;
-  border: 1px solid #F3E5AB;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 18px 0 12px;
+  font-family: var(--serif);
+  font-size: 0.86em;
+  font-style: italic;
+  color: var(--ink-soft);
   text-align: center;
 }
+.science .stats > div {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 18px 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
 .science .stats .num {
-  font-size: 18pt;
-  color: #b85c5c;
   display: block;
-  font-weight: bold;
+  font-family: var(--serif);
+  font-weight: 350;
+  font-style: normal;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  font-size: clamp(28pt, 5vw, 42pt);
+  letter-spacing: -0.025em;
+  color: var(--terracotta);
+  line-height: 1;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
 }
 .science cite {
-  font-size: 9pt;
-  color: #999999;
   display: block;
-  margin-top: 0.5em;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.84em;
+  color: var(--ink-faint);
+  border-top: 1px dashed var(--rule);
+  padding-top: 14px;
+  margin-top: 6px;
+  line-height: 1.5;
 }
 
-table.examples td {
-  vertical-align: top;
-  padding: 4px;
+.deployments {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 10px;
 }
-table.examples td.code {
-  font-family: monospace;
-  white-space: pre-wrap;
-  font-size: 9pt;
+.deployments li {
+  background: var(--paper-tint);
+  border: 1px solid var(--rule-soft);
+  border-left: 3px solid var(--bean);
+  padding: 14px 18px;
+  border-radius: 0 4px 4px 0;
+  transition: background 150ms ease, border-left-color 150ms ease, transform 150ms ease;
 }
+.deployments li:hover {
+  background: var(--vanilla-glow);
+  border-left-color: var(--terracotta);
+  transform: translateX(2px);
+}
+.deployments li a strong {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--ink);
+}
+.deployments li a:hover strong { color: var(--bean-deep); }
+
+p.note {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.84em;
+  color: var(--ink-faint);
+  border-left: 2px solid var(--rule);
+  padding-left: 14px;
+  margin: -16px 0 32px;
+  line-height: 1.55;
+}
+p.note .code, p.note code { font-style: normal; }
 
 .badge {
-  display: inline-block;
-  background: #F3E5AB;
-  color: #666666;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--vanilla);
+  color: var(--bean-deep);
+  padding: 5px 12px;
   border-radius: 3px;
+  font-size: 11pt;
+  font-family: var(--mono);
+  font-weight: 600;
+  border: 1px solid var(--bean);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+  letter-spacing: 0.01em;
+}
+
+#skyscraper {
+  position: absolute;
+  left: 100%;
+  top: 64px;
+  margin-left: 36px;
+  width: 184px;
+  font-family: var(--serif);
+  font-style: italic;
   font-size: 10pt;
-  font-family: monospace;
-  border: 1px solid #9e946e;
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+#skyscraper a { color: var(--ink-faint); text-decoration-color: var(--rule); }
+#skyscraper a:hover { color: var(--bean); text-decoration-color: var(--bean); }
+#skyscraper p { margin: 0 0 10px; }
+#skyscraper .mark {
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30pt;
+  color: var(--bean);
+  line-height: 1;
+  margin: 0 0 8px;
+  letter-spacing: 0.005em;
+}
+#skyscraper .terminal {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-style: normal;
+  padding: 10px 12px;
+  border-radius: 3px;
+  margin: 12px 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+  line-height: 1.55;
+}
+#skyscraper hr {
+  border: none;
+  border-top: 1px dashed var(--rule);
+  margin: 14px 0;
+}
+@media (max-width: 1180px) { #skyscraper { display: none; } }
+
+.hero-anim h1       { animation: fadeUp 1.0s 0.05s ease both; }
+.hero-anim .tagline { animation: fadeUp 1.0s 0.30s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim h1, .hero-anim .tagline { animation: none; }
+  table.comparison td.ops .bar { transition: none; }
+}
+
+@media print {
+  body { background: white; }
+  body::before { display: none; }
+  #content { box-shadow: none; }
+  #skyscraper { display: none; }
 }
 </style>
 <script type="text/javascript">
@@ -455,7 +857,36 @@ window.onload = function() {
     testimonial_cur = (testimonial_cur+1) % testimonials.length;
     render_testimonial();
   }, 5000);
+
+  init_bar_anim();
 };
+
+function init_bar_anim() {
+  var bars = document.querySelectorAll('table.comparison td.ops .bar');
+  if (!bars.length) return;
+  bars.forEach(function(b){
+    b.dataset.targetWidth = b.style.width;
+    b.style.width = '0';
+  });
+  if (!('IntersectionObserver' in window)) {
+    bars.forEach(function(b){ b.style.width = b.dataset.targetWidth; });
+    return;
+  }
+  var seen = new WeakSet();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      if (seen.has(e.target)) return;
+      seen.add(e.target);
+      e.target.querySelectorAll('td.ops .bar').forEach(function(b, i){
+        var w = b.dataset.targetWidth;
+        if (!w) return;
+        setTimeout(function(){ b.style.width = w; }, 80 + i * 70);
+      });
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('table.comparison').forEach(function(t){ io.observe(t); });
+}
 
 function render_testimonial() {
   while (dom.testimonial.childNodes.length) dom.testimonial.removeChild(dom.testimonial.firstChild);
@@ -520,13 +951,13 @@ function trigger_download(e) {
 }
 </script>
 </head>
-<body>
+<body class="hero-anim">
 <div id="content">
 <h1><span>Vanilla AGENTS.md</span><svg class="bg-glyph" viewBox="0 0 208 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="204" height="124" rx="14" ry="14" fill="none" stroke="#000" stroke-width="6"/><path fill="#000" d="M30 98V30h20l20 26 20-26h20v68H90V62L70 86 50 62v36zM158 98l-30-32h18V30h24v36h18z"/></svg></h1>
 <div class="tagline"><span class="vanillajs">Vanilla AGENTS.md</span> is a fast, lightweight, cross-platform format<br/>for instructing incredible, powerful coding agents.</div>
 
 <h2>Introduction</h2>
-<p><a target="_blank" rel="noopener" href="https://agents.md">The <span class="vanillajs">Vanilla AGENTS.md</span> team</a> maintains every byte of the format and works hard each day to make sure it is small and intuitive. Who&rsquo;s using <span class="vanillajs">Vanilla AGENTS.md</span>? Glad you asked! Here are a few:</p>
+<p><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/ingo-eichhorst/">The <span class="vanillajs">Vanilla AGENTS.md</span> team</a> maintains every byte of the format and works hard each day to make sure it is small and intuitive. Who&rsquo;s using <span class="vanillajs">Vanilla AGENTS.md</span>? Glad you asked! Here are a few:</p>
 <ul class="flatlist"><li>OpenAI</li><li>Google</li><li>Anthropic</li><li>Cursor</li><li>GitHub Copilot</li><li>Zed</li><li>VS Code</li><li>Warp</li><li>Devin</li><li>Jules</li></ul>
 <ul class="flatlist"><li>Aider</li><li>Codex</li><li>Factory</li><li>Amp</li><li>Temporal</li><li>Apache Airflow</li><li>PlutoLang</li><li>Sourcegraph</li><li>JetBrains</li><li>Replit</li></ul>
 <p>In fact, <span class="vanillajs">Vanilla AGENTS.md</span> is already used in more repositories than <span class="code">.cursorrules</span>, <span class="code">.windsurfrules</span>, <span class="code">.clinerules</span>, <span class="code">CLAUDE.md</span>, and <span class="code">.github/copilot-instructions.md</span> &mdash; <em>combined</em>.</p>
@@ -537,7 +968,7 @@ function trigger_download(e) {
 <div id="customizer">
 <div id="customizer-options"><label class="selected"><input type="checkbox" name="core" checked="checked" disabled="disabled"/> Core Functionality</label></div>
 <div id="customizer-estimate"><strong>Final size:</strong> <span id="customizer-estimate-uncompressed">0 bytes</span> uncompressed, <span id="customizer-estimate-gzipped">25 bytes</span> gzipped. <label><input type="checkbox" onchange="customizer_hrsize(this.checked);"/> Show human-readable sizes</label></div>
-<div id="customizer-overhead">Predicted agent task-success rate (compared to alternatives): <span class="pct" id="customizer-overhead-pct">100%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
+<div id="customizer-overhead">Predicted agent task-success rate of alternative solutions: <span class="pct" id="customizer-overhead-pct">100%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
 <div id="customizer-download"><form action="AGENTS.md" method="get" onsubmit="return trigger_download(event)"><input type="submit" value="Download"/></form></div>
 </div>
 
@@ -558,16 +989,14 @@ function trigger_download(e) {
 <h3>Parse instructions for a coding agent</h3>
 <table class="comparison">
 <tr><td class="corner"></td><th>Code</th><th>ops / sec</th></tr>
-<tr><th><span class="vanillajs">Vanilla AGENTS.md</span> (production)</th><td class="code">open(&quot;AGENTS.md&quot;).read()  # 0 bytes</td><td class="ops"><div class="container"><span class="label">71,479</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
-<tr><th>.cursorrules</th><td class="code">open(&quot;.cursorrules&quot;).read()</td><td class="ops"><div class="container"><span class="label">70,187</span><div class="bar" style="width:98.19%;">&nbsp;</div></div></td></tr>
-<tr><th><span class="vanillajs">Vanilla AGENTS.md</span> (with content)</th><td class="code">open(&quot;AGENTS.md&quot;).read()</td><td class="ops"><div class="container"><span class="label">68,699</span><div class="bar" style="width:96.11%;">&nbsp;</div></div></td></tr>
+<tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">open(&quot;AGENTS.md&quot;).read()  # 0 bytes</td><td class="ops"><div class="container"><span class="label">71,479</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
 <tr><th>JSON</th><td class="code">json.load(open(&quot;agent.json&quot;))</td><td class="ops"><div class="container"><span class="label">44,766</span><div class="bar" style="width:62.63%;">&nbsp;</div></div></td></tr>
 <tr><th>XML</th><td class="code">ET.parse(&quot;agent.xml&quot;).getroot()</td><td class="ops"><div class="container"><span class="label">25,061</span><div class="bar" style="width:35.06%;">&nbsp;</div></div></td></tr>
 <tr><th>TOML</th><td class="code">tomllib.load(open(&quot;agent.toml&quot;,&quot;rb&quot;))</td><td class="ops"><div class="container"><span class="label">8,329</span><div class="bar" style="width:11.65%;">&nbsp;</div></div></td></tr>
 <tr><th>YAML</th><td class="code">yaml.safe_load(open(&quot;agent.yaml&quot;))</td><td class="ops"><div class="container"><span class="label">805</span><div class="bar" style="width:1.13%;">&nbsp;</div></div></td></tr>
 <tr><th>JSON + schema</th><td class="code">jsonschema.validate(json.load(f), schema)</td><td class="ops"><div class="container"><span class="label">803</span><div class="bar" style="width:1.12%;">&nbsp;</div></div></td></tr>
 </table>
-<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Real measurements (CPython 3.14.3, arm64). The <strong>production</strong> row reads an <em>empty</em> <span class="code">AGENTS.md</span> &mdash; the configuration Gloaguen et al. (2026) implicitly recommend when they conclude that &ldquo;human-written context files should describe only minimal requirements.&rdquo; The <strong>with content</strong> row reads the same project guidance encoded in every other format below, and ties with <span class="code">.cursorrules</span> within noise (both are plain-text reads). Reproduce with <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/bench.py" target="_blank" rel="noopener"><code>bench/bench.py</code></a>; raw output in <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/results.json" target="_blank" rel="noopener"><code>results.json</code></a>.</p>
+<p class="note">Real measurements (CPython 3.14.3, arm64). The <strong>production</strong> row reads an <em>empty</em> <span class="code">AGENTS.md</span> &mdash; the configuration Gloaguen et al. (2026) implicitly recommend when they conclude that &ldquo;human-written context files should describe only minimal requirements.&rdquo; The <strong>with content</strong> row reads the same project guidance encoded in every other format below, and ties with <span class="code">.cursorrules</span> within noise (both are plain-text reads). Reproduce with <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/bench.py" target="_blank" rel="noopener"><code>bench/bench.py</code></a>; raw output in <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/bench/results.json" target="_blank" rel="noopener"><code>results.json</code></a>.</p>
 
 <h3>Update instructions across 12 different coding agents</h3>
 <table class="comparison">
@@ -575,7 +1004,7 @@ function trigger_download(e) {
 <tr><th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">write(&quot;AGENTS.md&quot;)</td><td class="ops"><div class="container"><span class="label">15,529</span><div class="bar" style="width:100.00%;">&nbsp;</div></div></td></tr>
 <tr><th>Per-tool config files (12&times;)</th><td class="code">for f in [.cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, .aider.conf.yml, .junie/guidelines.md, CLAUDE.md, .roomodes, .codex/config.toml, .factory/agent.md, .continuerules, .zedrules]: write(f)</td><td class="ops"><div class="container"><span class="label">1,204</span><div class="bar" style="width:7.75%;">&nbsp;</div></div></td></tr>
 </table>
-<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Real measurements: writing the same instruction payload to one file vs. twelve. The 12.7&times; gap matches what you&rsquo;d expect &mdash; per-tool configs scale linearly with the number of agents you support.</p>
+<p class="note">Real measurements: writing the same instruction payload to one file vs. twelve. The 12.7&times; gap matches what you&rsquo;d expect &mdash; per-tool configs scale linearly with the number of agents you support.</p>
 
 <h3>Task success rate &amp; cost from the AGENTS.md study</h3>
 <table>
@@ -585,7 +1014,7 @@ function trigger_download(e) {
 <tr><td>LLM-generated AGENTS.md, AGENTBENCH</td><td style="text-align:right;color:#b85c5c;">&minus;2%</td><td style="text-align:right;color:#b85c5c;">+23%</td><td><a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>, Fig. 3 / Table 2</td></tr>
 <tr><td>Developer-written AGENTS.md, AGENTBENCH</td><td style="text-align:right;color:#5c8a5c;">+4%</td><td style="text-align:right;color:#b85c5c;">up to +19%</td><td><a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a>, &sect;4.2</td></tr>
 </table>
-<p style="font-size:9pt;color:#999999;margin-top:-1.5em;">Numbers are taken verbatim from Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md</em>, <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a> (Feb 2026), Section 4.2 &ldquo;Main Results&rdquo;. Models tested: Sonnet-4.5, GPT-5.2, GPT-5.1 mini, Qwen3-30B-coder. Benchmarks: SWE-bench Lite (300 tasks) and AGENTBENCH (138 tasks across 12 repos with developer-written context files).</p>
+<p class="note">Numbers are taken verbatim from Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev, <em>Evaluating AGENTS.md</em>, <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a> (Feb 2026), Section 4.2 &ldquo;Main Results&rdquo;. Models tested: Sonnet-4.5, GPT-5.2, GPT-5.1 mini, Qwen3-30B-coder. Benchmarks: SWE-bench Lite (300 tasks) and AGENTBENCH (138 tasks across 12 repos with developer-written context files).</p>
 
 <div class="science">
 <h3>The Science</h3>
@@ -604,8 +1033,7 @@ function trigger_download(e) {
 <h3>Tell the agent to run tests</h3>
 <table class="examples">
 <tr>
-<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Testing
-Run `pnpm test` before opening a PR.</td></tr>
+<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Testing</td></tr>
 <tr><th>.cursorrules</th><td class="code">{
   "rules": [
     {
@@ -622,8 +1050,7 @@ Run `pnpm test` before opening a PR.</td></tr>
 <h3>Add a new build command</h3>
 <table class="examples">
 <tr>
-<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Build
-Use `pnpm build` to produce the production bundle.</td></tr>
+<th><span class="vanillajs">Vanilla AGENTS.md</span></th><td class="code">## Build</td></tr>
 <tr><th>Per-tool config update</th><td class="code">$EDITOR .cursorrules
 $EDITOR .windsurfrules
 $EDITOR .clinerules
@@ -637,14 +1064,14 @@ $EDITOR factory.yaml
 
 <h2>Production Deployments</h2>
 <p>Want to see <span class="vanillajs">Vanilla AGENTS.md</span> in real-world action? Browse these public GitHub repositories. Every one was built (or substantially co-authored) by a coding agent &mdash; and every one ships with <strong>zero</strong> context files. No <span class="code">AGENTS.md</span>, no <span class="code">CLAUDE.md</span>, not a <span class="code">.cursorrules</span> in sight. Verified <a href="https://github.com/ingo-eichhorst/vanilla-agents-md/blob/main/PRODUCTION.md" target="_blank" rel="noopener">2026-05-03</a>.</p>
-<ul>
+<ul class="deployments">
 <li><a target="_blank" rel="noopener" href="https://github.com/rdumasia303/deepseek_ocr_app"><strong>rdumasia303/deepseek_ocr_app</strong></a> &mdash; 1.8k&nbsp;stars. &ldquo;A quick vibe coded app for deepseek OCR.&rdquo; Commits carry <span class="code">Co-Authored-By: Claude Opus 4.6</span>; security hardening landed via Claude branches.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/deutsia/deutsia-radio"><strong>deutsia/deutsia-radio</strong></a> &mdash; privacy-focused Android radio with I2P, Tor, and clearnet streaming. <em>39 of the most recent 100 commits</em> are authored directly by <span class="code">Claude &lt;noreply@anthropic.com&gt;</span>.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/dannystuart/carousel-standalone"><strong>dannystuart/carousel-standalone</strong></a> &mdash; themed card carousel with Fantasy and Cosmos visual modes. README: &ldquo;Built entirely through conversation with Claude Code.&rdquo; 16 of 18 commits are Claude co-authored.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/nraford7/CrateBot5"><strong>nraford7/CrateBot5</strong></a> &mdash; audio fingerprinting + ML-driven music analysis suite for DJs (Swift). 26 of the most recent 27 commits are Claude co-authored.</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/enablement-ch/clio-ghostwriter"><strong>enablement-ch/clio-ghostwriter</strong></a> &mdash; LinkedIn ghostwriter pipeline (scrape &rarr; topic ID &rarr; write &rarr; QA &rarr; ClickUp), driven by a Slack bot. README: &ldquo;Built with Claude Code.&rdquo;</li>
 </ul>
-<p style="font-size:9pt;color:#999999;margin-top:-0.5em;"><span class="vanillajs">Vanilla AGENTS.md</span> is so lightweight, your agent doesn&rsquo;t even know it&rsquo;s missing.</p>
+<p class="note"><span class="vanillajs">Vanilla AGENTS.md</span> is so lightweight, your agent doesn&rsquo;t even know it&rsquo;s missing.</p>
 
 <h2>Further Reading</h2>
 <p>For more information about <span class="vanillajs">Vanilla AGENTS.md</span>:</p>
@@ -658,11 +1085,12 @@ $EDITOR factory.yaml
 <p>When powering your repositories with <span class="vanillajs">Vanilla AGENTS.md</span>, feel free to use this handy badge! <span class="badge">Powered by VANILLA AGENTS.md</span></p>
 
 <div id="skyscraper">
-<p style="font-family:'Tangerine',cursive;font-size:24pt;color:#9e946e;line-height:1;margin:0;font-weight:700;">Vanilla AGENTS.md</p>
-<p style="margin:0.5em 0;">a fast, lightweight, cross-platform format</p>
-<p style="margin:1em 0;font-family:monospace;font-size:9pt;background:#f8f8f8;padding:0.5em;border:1px solid #dddddd;">$ touch AGENTS.md<br/># done.</p>
-<p style="margin:1em 0;font-size:9pt;">Already supported by every coding agent you&rsquo;ve heard of.</p>
-<p style="margin:1em 0;font-size:9pt;"><a href="https://github.com/ingo-eichhorst/vanilla-agents-md" target="_blank" rel="noopener">source on GitHub</a></p>
+<p class="mark">Vanilla AGENTS.md</p>
+<p>a fast, lightweight,<br/>cross-platform format.</p>
+<div class="terminal">$ touch AGENTS.md<br/><span style="opacity:.5;"># done.</span></div>
+<hr/>
+<p>Already supported by every coding agent you&rsquo;ve heard of.</p>
+<p><a href="https://github.com/ingo-eichhorst/vanilla-agents-md" target="_blank" rel="noopener">source on GitHub →</a></p>
 </div>
 </div><!--/content-->
 </body>
