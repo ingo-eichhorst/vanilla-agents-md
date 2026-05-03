@@ -243,6 +243,7 @@ ol.sourcecode li div {
 #customizer-overhead .pct {
   font-weight: bold;
   color: #b85c5c;
+  font-family: monospace;
 }
 #customizer-overhead a {
   color: #999999;
@@ -483,8 +484,9 @@ function customizer_hrsize(use_hrsize) {
 }
 function customizer_overhead() {
   var checked = dom.optdiv.querySelectorAll("input[type=checkbox]:checked").length;
-  var pct = Math.min(20, checked * 2);
-  dom.overhead.textContent = "+" + pct + "%";
+  var drop = Math.min(38, checked * 4);
+  var rate = 100 - drop;
+  dom.overhead.textContent = rate + "%  (Δ −" + drop + "%)";
 }
 function noop_download(e) {
   e.preventDefault();
@@ -509,7 +511,7 @@ function noop_download(e) {
 <div id="customizer">
 <div id="customizer-options"><label class="selected"><input type="checkbox" name="core" checked="checked" disabled="disabled"/> Core Functionality</label></div>
 <div id="customizer-estimate"><strong>Final size:</strong> <span id="customizer-estimate-uncompressed">0 bytes</span> uncompressed, <span id="customizer-estimate-gzipped">25 bytes</span> gzipped. <label><input type="checkbox" onchange="customizer_hrsize(this.checked);"/> Show human-readable sizes</label></div>
-<div id="customizer-overhead">Estimated agent cost overhead: <span class="pct" id="customizer-overhead-pct">+0%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
+<div id="customizer-overhead">Predicted agent task-success rate: <span class="pct" id="customizer-overhead-pct">100%</span> &nbsp;<a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener" title="Why? See Gloaguen et al., 2026">[why?]</a></div>
 <div id="customizer-download"><form action="?download" method="post" onsubmit="return noop_download(event)"><input type="submit" value="Download"/></form></div>
 </div>
 
@@ -561,8 +563,8 @@ function noop_download(e) {
 <h3>The Science</h3>
 <p>Independent researchers recently confirmed that <span class="vanillajs">Vanilla AGENTS.md</span> is so efficient, <em>removing it entirely</em> is the only known optimization. Our team is working tirelessly to deliver this enhancement in <span class="code">v0.0.0</span>.</p>
 <div class="stats">
-  <div><span class="num">+20%</span>agent cost overhead<br/>from context files</div>
-  <div><span class="num">&minus;</span>task success rate<br/>vs. no context at all</div>
+  <div><span class="num">&minus;20%</span>task success rate<br/>vs. no context at all</div>
+  <div><span class="num">+20%</span>agent cost<br/>from context files</div>
   <div><span class="num">0</span>required fields<br/>by design</div>
 </div>
 <cite>Gloaguen, M&uuml;ndler, M&uuml;ller, Raychev &amp; Vechev. <em>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?</em> <a href="https://arxiv.org/abs/2602.11988" target="_blank" rel="noopener">arXiv:2602.11988</a> (2026).</cite>
