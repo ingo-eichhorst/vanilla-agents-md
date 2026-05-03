@@ -108,7 +108,15 @@ body::before {
   font-size: 1.45em;
   letter-spacing: 0.005em;
   padding-right: 0.05em;
-  white-space: nowrap;
+}
+/* In narrow tabular contexts, let the brand mark wrap on its existing
+   space (Vanilla / AGENTS.md) instead of overflowing the column. */
+table th .vanillajs,
+table td .vanillajs {
+  display: inline-block;
+  line-height: 1.05;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .code, code {
